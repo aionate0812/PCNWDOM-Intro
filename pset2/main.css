@@ -21,3 +21,15 @@ body {
 .row:hover {
   background-color: #383838;
 }
+
+.textBlack{
+  color:#78686B;
+  
+}
+
+.list-move-left{
+  margin-left:-1em;
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+
+}

@@ -69,3 +69,60 @@ const playlist = {
     }
   ]
 };
+
+const objectToHTML = (song) => {
+  return `<div class='row mb-2'>
+  <div class='col-1'>
+    <img src="${song.image}" class="rounded" style='width: 50px; height: 50px;'>
+  </div>
+  <div class='col-11'>
+    <p class='mb-0 mt-1 song-name'>${song.name}</p>
+    <p class='my-0 song-artists'>${song.artists}</p>
+  </div>
+</div>`;
+}
+
+const render = () => {
+
+  const title = document.querySelector('h1');
+  title.innerText = playlist.name;
+
+  const desc = document.querySelector('.lead');
+  desc.innerText = playlist.description;
+
+  const song_list = document.querySelector('.song-list');
+
+  let combinedHTML = '';
+  for (let i = 0; i < playlist.songs.length; i++) {
+    combinedHTML += objectToHTML(playlist.songs[i]);
+  }
+
+  song_list.innerHTML = combinedHTML;
+  
+}
+
+const search = (playlist) => {
+let songsArr = playlist.songs
+let results = []
+songsArr.forEach((e)=>{
+  if(e.name.toLowerCase().includes(document.querySelector('.search-js').value.toLowerCase())){
+    results.push(e.name)
+  }
+})
+return results
+}
+
+const searchEvent = document.addEventListener('keyup',()=>{
+  if(document.querySelector('.search-js').value === ''){
+    document.querySelector('.results').innerHTML = ''
+  }else{
+document.querySelector('.results').innerHTML = `
+
+<ul class='textBlack list-group col-sm-6'>${
+search(playlist).reduce((accumulator, currentValue) => accumulator + `<li class='list-move-left list-group-item'>${currentValue}</li>`, '')
+}
+</ul>`
+  }
+})
+
+render();
